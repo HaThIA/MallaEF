@@ -1,21 +1,21 @@
 :root {
-  --fondo-claro: #f0f8ff;
-  --fondo-oscuro: #1e1e2f;
+  --fondo-claro: #e0f7fa;
+  --fondo-oscuro: #1c1c2b;
   --texto-claro: #000000;
   --texto-oscuro: #ffffff;
-  --aprobado: #90ee90;
-  --bloqueado: #ffcccb;
-  --color-principal: #0077b6;
+  --aprobado: #a2f5a2;
+  --bloqueado: #ffcdd2;
+  --color-principal: #00b4d8;
   --color-secundario: #caf0f8;
   --color-semestre: #ade8f4;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   background-color: var(--fondo-claro);
   color: var(--texto-claro);
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark-mode {
@@ -26,14 +26,14 @@ body {
 h1 {
   text-align: center;
   margin-top: 1rem;
+  color: var(--color-principal);
 }
 
 .grid-malla {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
   padding: 1rem;
-  overflow-x: auto;
 }
 
 .semestre {
@@ -43,18 +43,24 @@ h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.semestre h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: var(--color-principal);
+}
+
 .ramo {
   background-color: var(--color-secundario);
   margin: 0.5rem 0;
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
   user-select: none;
 }
 
 .ramo:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .ramo.aprobado {
@@ -72,10 +78,34 @@ h1 {
   padding: 1rem;
 }
 
+.color-picker-container {
+  text-align: center;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.color-picker-container label {
+  font-size: 0.9rem;
+  color: inherit;
+}
+
+.color-picker-container button {
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   padding-top: 100px;
   left: 0;
   top: 0;
@@ -89,13 +119,10 @@ h1 {
   background-color: white;
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
   border-radius: 10px;
-}
-
-.modal-content p {
-  margin: 0;
+  width: 80%;
+  max-width: 500px;
+  color: #000;
 }
 
 .dark-mode .modal-content {
@@ -108,4 +135,3 @@ h1 {
   font-size: 1.5rem;
   cursor: pointer;
 }
-
