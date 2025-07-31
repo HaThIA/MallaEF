@@ -89,3 +89,59 @@ function mostrarModal(mensaje) {
   mensajeModal.textContent = mensaje;
   modal.style.display = "block";
 }
+
+// 🌈 Selector de color primario y secundario dinámico
+const colorPrimarioInput = document.getElementById("colorPrimario");
+const colorSecundarioInput = document.getElementById("colorSecundario");
+const rootStyles = document.documentElement.style;
+
+const defaultColors = {
+  primario: "#00b4d8",
+  secundario: "#caf0f8"
+};
+
+// 🧠 Cargar colores guardados (si existen)
+const savedPrimario = localStorage.getItem("colorPrimario");
+const savedSecundario = localStorage.getItem("colorSecundario");
+
+if (savedPrimario) {
+  rootStyles.setProperty("--color-principal", savedPrimario);
+  colorPrimarioInput.value = savedPrimario;
+} else {
+  colorPrimarioInput.value = defaultColors.primario;
+}
+
+if (savedSecundario) {
+  rootStyles.setProperty("--color-secundario", savedSecundario);
+  colorSecundarioInput.value = savedSecundario;
+} else {
+  colorSecundarioInput.value = defaultColors.secundario;
+}
+
+// 🎯 Cambiar colores y guardar
+colorPrimarioInput.addEventListener("input", () => {
+  const color = colorPrimarioInput.value;
+  rootStyles.setProperty("--color-principal", color);
+  localStorage.setItem("colorPrimario", color);
+});
+
+colorSecundarioInput.addEventListener("input", () => {
+  const color = colorSecundarioInput.value;
+  rootStyles.setProperty("--color-secundario", color);
+  localStorage.setItem("colorSecundario", color);
+});
+
+// 🔄 Botón para restablecer colores
+const resetBtn = document.createElement("button");
+resetBtn.textContent = "Restablecer Colores";
+document.querySelector(".color-picker-container").appendChild(resetBtn);
+
+resetBtn.addEventListener("click", () => {
+  rootStyles.setProperty("--color-principal", defaultColors.primario);
+  rootStyles.setProperty("--color-secundario", defaultColors.secundario);
+  colorPrimarioInput.value = defaultColors.primario;
+  colorSecundarioInput.value = defaultColors.secundario;
+  localStorage.removeItem("colorPrimario");
+  localStorage.removeItem("colorSecundario");
+});
+
