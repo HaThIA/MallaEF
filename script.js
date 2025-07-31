@@ -1,13 +1,29 @@
-// 🔁 Lista completa de ramos con semestres y requisitos
-const ramos = [/* 👈 Esta parte ya está completa desde el prompt anterior y ya fue cargada arriba, mantén esa sección intacta aquí */];
+// Lista de ramos y requisitos (puedes completarla tú con todos los ramos)
+const ramos = [
+  { nombre: "morfología integral", semestre: 1, requisitos: [] },
+  { nombre: "química General y orgánica", semestre: 1, requisitos: [] },
+  { nombre: "biología celular", semestre: 1, requisitos: [] },
+  { nombre: "razonamiento matemático", semestre: 1, requisitos: [] },
+  { nombre: "bases teorías de enfermería", semestre: 1, requisitos: [] },
+  { nombre: "microbiologia", semestre: 2, requisitos: ["biología celular"] },
+  { nombre: "bioquímica", semestre: 2, requisitos: ["biología celular"] },
+  { nombre: "Psicológia evolutiva", semestre: 2, requisitos: [] },
+  { nombre: "socioantropologia", semestre: 2, requisitos: [] },
+  { nombre: "bases del cuidado de enfermería", semestre: 2, requisitos: ["morfología integral", "bases teorías de enfermería"] },
+  { nombre: "CFG: habilidades comunicativas", semestre: 2, requisitos: [] },
+  { nombre: "fisiología", semestre: 3, requisitos: ["morfología integral"] },
+  { nombre: "salud pública 1", semestre: 3, requisitos: ["razonamiento matemático", "bases del cuidado de enfermería"] },
+  { nombre: "enfermería en la promoción y Prevención en salud", semestre: 3, requisitos: ["bases teorías de enfermería", "socioantropologia"] },
+  { nombre: "cuidado de enfermería en el ciclo vital", semestre: 3, requisitos: ["Psicológia evolutiva", "bases del cuidado de enfermería"] },
+  { nombre: "ingles 1", semestre: 3, requisitos: [] }
+  // Continúa agregando los ramos restantes...
+];
 
-// 🚧 Construir la grilla de la malla
+// Construir la malla en la interfaz
 const malla = document.getElementById("malla");
-
 for (let i = 1; i <= 10; i++) {
   const col = document.createElement("div");
   col.className = "semestre";
-
   const titulo = document.createElement("h3");
   titulo.textContent = `Semestre ${i}`;
   col.appendChild(titulo);
@@ -28,79 +44,67 @@ for (let i = 1; i <= 10; i++) {
   malla.appendChild(col);
 }
 
-// ✅ Verifica si los requisitos están cumplidos
+// Funciones lógicas
 function requisitosCompletos(ramo) {
   const aprobados = obtenerAprobados();
   return ramo.requisitos.every(req => aprobados.includes(req));
 }
 
-// 🖱️ Manejo de clic en un ramo
 function manejarClick(ramo, elemento) {
   if (elemento.classList.contains("bloqueado")) {
     const faltantes = ramo.requisitos.filter(req => !obtenerAprobados().includes(req));
-    mostrarModal(`No puedes aprobar este ramo aún. Debes aprobar: ${faltantes.join(", ")}`);
+    mostrarModal(`No puedes aprobar este ramo. Faltan: ${faltantes.join(", ")}`);
     return;
   }
 
   elemento.classList.toggle("aprobado");
   guardarEstado();
-  location.reload(); // recargar para revalidar dependencias visualmente
+  location.reload();
 }
 
-// 📦 Obtener ramos aprobados desde localStorage
 function obtenerAprobados() {
   return JSON.parse(localStorage.getItem("ramosAprobados") || "[]");
 }
 
-// 🔄 Verifica si un ramo está aprobado
 function estaAprobado(nombre) {
   return obtenerAprobados().includes(nombre);
 }
 
-// 💾 Guardar estado actual
 function guardarEstado() {
   const aprobados = Array.from(document.querySelectorAll(".ramo.aprobado"))
     .map(r => r.dataset.nombre);
   localStorage.setItem("ramosAprobados", JSON.stringify(aprobados));
 }
 
-// 🌙 Modo oscuro
-const switchModo = document.getElementById("modoSwitch");
-
-if (localStorage.getItem("modoOscuro") === "true") {
-  document.body.classList.add("dark-mode");
-  switchModo.checked = true;
-}
-
-switchModo.addEventListener("change", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem("modoOscuro", switchModo.checked);
-});
-
-// ⚠️ Modal para mostrar requisitos pendientes
+// Modal
 const modal = document.getElementById("modal");
 const mensajeModal = document.getElementById("mensajeModal");
-
-document.getElementById("cerrarModal").onclick = () => {
-  modal.style.display = "none";
-};
-
+document.getElementById("cerrarModal").onclick = () => modal.style.display = "none";
 function mostrarModal(mensaje) {
   mensajeModal.textContent = mensaje;
   modal.style.display = "block";
 }
 
-// 🌈 Selector de color primario y secundario dinámico
+// 🌙 Modo oscuro
+const switchModo = document.getElementById("modoSwitch");
+if (localStorage.getItem("modoOscuro") === "true") {
+  document.body.classList.add("dark-mode");
+  switchModo.checked = true;
+}
+switchModo.addEventListener("change", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("modoOscuro", switchModo.checked);
+});
+
+// 🎨 Colores personalizables
 const colorPrimarioInput = document.getElementById("colorPrimario");
 const colorSecundarioInput = document.getElementById("colorSecundario");
 const rootStyles = document.documentElement.style;
-
 const defaultColors = {
   primario: "#00b4d8",
   secundario: "#caf0f8"
 };
 
-// 🧠 Cargar colores guardados (si existen)
 const savedPrimario = localStorage.getItem("colorPrimario");
 const savedSecundario = localStorage.getItem("colorSecundario");
 
@@ -118,7 +122,6 @@ if (savedSecundario) {
   colorSecundarioInput.value = defaultColors.secundario;
 }
 
-// 🎯 Cambiar colores y guardar
 colorPrimarioInput.addEventListener("input", () => {
   const color = colorPrimarioInput.value;
   rootStyles.setProperty("--color-principal", color);
@@ -131,11 +134,10 @@ colorSecundarioInput.addEventListener("input", () => {
   localStorage.setItem("colorSecundario", color);
 });
 
-// 🔄 Botón para restablecer colores
+// 🎛 Botones de reseteo
 const resetBtn = document.createElement("button");
 resetBtn.textContent = "Restablecer Colores";
 document.querySelector(".color-picker-container").appendChild(resetBtn);
-
 resetBtn.addEventListener("click", () => {
   rootStyles.setProperty("--color-principal", defaultColors.primario);
   rootStyles.setProperty("--color-secundario", defaultColors.secundario);
@@ -145,3 +147,17 @@ resetBtn.addEventListener("click", () => {
   localStorage.removeItem("colorSecundario");
 });
 
+const resetProgresoBtn = document.createElement("button");
+resetProgresoBtn.textContent = "Reiniciar Progreso";
+resetProgresoBtn.style.backgroundColor = "#e63946";
+resetProgresoBtn.style.color = "white";
+resetProgresoBtn.style.border = "none";
+resetProgresoBtn.style.borderRadius = "5px";
+resetProgresoBtn.style.padding = "0.5rem 1rem";
+resetProgresoBtn.style.cursor = "pointer";
+resetProgresoBtn.style.fontSize = "0.9rem";
+document.querySelector(".color-picker-container").appendChild(resetProgresoBtn);
+resetProgresoBtn.addEventListener("click", () => {
+  localStorage.removeItem("ramosAprobados");
+  location.reload();
+});
