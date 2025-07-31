@@ -1,1 +1,111 @@
+:root {
+  --fondo-claro: #f0f8ff;
+  --fondo-oscuro: #1e1e2f;
+  --texto-claro: #000000;
+  --texto-oscuro: #ffffff;
+  --aprobado: #90ee90;
+  --bloqueado: #ffcccb;
+  --color-principal: #0077b6;
+  --color-secundario: #caf0f8;
+  --color-semestre: #ade8f4;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: var(--fondo-claro);
+  color: var(--texto-claro);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  background-color: var(--fondo-oscuro);
+  color: var(--texto-oscuro);
+}
+
+h1 {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.grid-malla {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.semestre {
+  background-color: var(--color-semestre);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ramo {
+  background-color: var(--color-secundario);
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.ramo:hover {
+  transform: scale(1.03);
+}
+
+.ramo.aprobado {
+  background-color: var(--aprobado);
+  text-decoration: line-through;
+}
+
+.ramo.bloqueado {
+  background-color: var(--bloqueado);
+  cursor: not-allowed;
+}
+
+.modo-toggle {
+  text-align: right;
+  padding: 1rem;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 10px;
+}
+
+.modal-content p {
+  margin: 0;
+}
+
+.dark-mode .modal-content {
+  background-color: #333;
+  color: white;
+}
+
+#cerrarModal {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
 
