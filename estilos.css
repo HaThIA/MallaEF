@@ -1,137 +1,122 @@
 :root {
-  --fondo-claro: #e0f7fa;
-  --fondo-oscuro: #1c1c2b;
-  --texto-claro: #000000;
-  --texto-oscuro: #ffffff;
-  --aprobado: #a2f5a2;
-  --bloqueado: #ffcdd2;
   --color-principal: #00b4d8;
   --color-secundario: #caf0f8;
-  --color-semestre: #ade8f4;
+  --color-texto: #000000;
+  --fondo: #e6f7fa;
 }
 
 body {
   font-family: 'Segoe UI', sans-serif;
+  background-color: var(--color-secundario);
+  color: var(--color-texto);
   margin: 0;
-  background-color: var(--fondo-claro);
-  color: var(--texto-claro);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .dark-mode {
-  background-color: var(--fondo-oscuro);
-  color: var(--texto-oscuro);
+  --color-texto: #ffffff;
+  --color-principal: #0077b6;
+  --color-secundario: #023e8a;
+  background-color: var(--color-secundario);
 }
 
 h1 {
   text-align: center;
-  margin-top: 1rem;
-  color: var(--color-principal);
 }
 
 .grid-malla {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .semestre {
-  background-color: var(--color-semestre);
+  background-color: var(--color-secundario);
   border-radius: 10px;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.1);
   padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.semestre h3 {
-  margin-top: 0;
-  font-size: 1.1rem;
-  color: var(--color-principal);
+  width: 160px;
 }
 
 .ramo {
-  background-color: var(--color-secundario);
-  margin: 0.5rem 0;
+  background-color: var(--color-principal);
+  margin: 0.3rem 0;
   padding: 0.5rem;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.2s ease;
-  user-select: none;
+  text-align: center;
+  transition: all 0.2s;
 }
 
 .ramo:hover {
-  transform: scale(1.02);
+  opacity: 0.9;
 }
 
 .ramo.aprobado {
-  background-color: var(--aprobado);
+  background-color: #198754;
+  color: white;
   text-decoration: line-through;
 }
 
 .ramo.bloqueado {
-  background-color: var(--bloqueado);
+  background-color: gray;
+  color: white;
   cursor: not-allowed;
 }
 
 .modo-toggle {
   text-align: right;
-  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .color-picker-container {
-  text-align: center;
-  margin-bottom: 1rem;
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
-.color-picker-container label {
-  font-size: 0.9rem;
-  color: inherit;
-}
-
-.color-picker-container button {
-  background-color: #0077b6;
+button {
+  background-color: var(--color-principal);
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
+}
+
+button:hover {
+  opacity: 0.85;
 }
 
 .modal {
   display: none;
   position: fixed;
-  z-index: 999;
+  z-index: 10;
   padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #fff;
   margin: auto;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #888;
   width: 80%;
   max-width: 500px;
-  color: #000;
+  border-radius: 8px;
 }
 
-.dark-mode .modal-content {
-  background-color: #333;
-  color: white;
-}
-
-#cerrarModal {
+.modal-content span {
   float: right;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   cursor: pointer;
 }
